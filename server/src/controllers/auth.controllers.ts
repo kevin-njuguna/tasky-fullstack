@@ -61,12 +61,19 @@ const {password: loginPassword, dateJoined, lastProfileUpdate, ...userDetails} =
 const token = jwt.sign(userDetails, process.env.JWT_SECRET!);
 
 
-res.cookie("authToken", token, {
-  httpOnly: true,
-  secure: true,  
-  sameSite: "none", 
-  maxAge: 7 * 24 * 60 * 60 * 1000, 
-}).json(userDetails);
+ res
+      .cookie("authToken", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        //maxAge: 7 * 24 * 60 * 60 * 1000, 
+      })
+      .json(userDetails); 
+  } catch (e) {
+    console.log(e);
+    res.status(400).json({ message: "Something went wrong!" });
+  }
+};
 
 export const logout = (_req: Request,res: Response) => {
     res.clearCookie('authToken')
