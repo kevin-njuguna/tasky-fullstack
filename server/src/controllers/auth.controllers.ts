@@ -63,9 +63,9 @@ const token = jwt.sign(userDetails, process.env.JWT_SECRET!);
 
 res.cookie("authToken", token, {
   httpOnly: true,
-  secure: true, // 
+  secure: true,  
   sameSite: "none", 
-  //maxAge: 7 * 24 * 60 * 60 * 1000, 
+  maxAge: 7 * 24 * 60 * 60 * 1000, 
 }).json(userDetails);
 
 export const logout = (_req: Request,res: Response) => {
