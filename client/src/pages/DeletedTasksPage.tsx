@@ -13,7 +13,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import HourglassDisabledIcon from "@mui/icons-material/HourglassDisabled";
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import axios from "../api/axios";
 
 
 interface Task {
