@@ -28,9 +28,9 @@ const NewTaskPage = () => {
       setDescription("");
 
       setTimeout(() => {
-        navigate("/tasks"); 
+        navigate("/tasks");
       }, 1500);
-    } catch  {
+    } catch {
       setErrorMsg("Failed to create task.");
     }
   };
@@ -41,8 +41,16 @@ const NewTaskPage = () => {
         Create New Task
       </Typography>
 
-      {successMsg && <Alert severity="success" sx={{ mb: 2 }}>{successMsg}</Alert>}
-      {errorMsg && <Alert severity="error" sx={{ mb: 2 }}>{errorMsg}</Alert>}
+      {successMsg && (
+        <Alert severity="success" sx={{ mb: 2 }}>
+          {successMsg}
+        </Alert>
+      )}
+      {errorMsg && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {errorMsg}
+        </Alert>
+      )}
 
       <form onSubmit={handleSubmit}>
         <TextField
@@ -65,7 +73,13 @@ const NewTaskPage = () => {
           required
         />
 
-        <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          fullWidth
+          sx={{ mt: 2 }}
+        >
           Add Task
         </Button>
       </form>

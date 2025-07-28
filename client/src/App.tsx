@@ -1,5 +1,5 @@
 // src/App.tsx
-import {  Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -11,14 +11,12 @@ import UpdateTaskPage from "./pages/updateTaskPage";
 import UserProfilePage from "./pages/UserProfilePage";
 //import NotFoundPage from "./pages/NotFoundPage";
 import Protected from "./components/Protected";
-import Header from "./components/Header"; 
-
+import Header from "./components/Header";
 
 function App() {
-  
   return (
     <>
-         <Header/>
+      <Header />
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<LandingPage />} />
@@ -37,45 +35,45 @@ function App() {
         <Route
           path="/completed-tasks"
           element={
-            <Protected><CompletedTasksPage /></Protected>
-              
-           
+            <Protected>
+              <CompletedTasksPage />
+            </Protected>
           }
         />
         <Route
           path="/deleted"
           element={
-            <Protected><DeletedTasksPage /></Protected>
+            <Protected>
+              <DeletedTasksPage />
+            </Protected>
           }
         />
         <Route
           path="/new-task"
           element={
-            <Protected><NewTaskPage /></Protected>
-              
-           
+            <Protected>
+              <NewTaskPage />
+            </Protected>
           }
         />
         <Route
           path="/update/:taskId"
           element={
-            <Protected><UpdateTaskPage /></Protected>
-              
-           
+            <Protected>
+              <UpdateTaskPage />
+            </Protected>
           }
         />
         <Route
           path="/profile"
           element={
-            <Protected><UserProfilePage /></Protected>
-              
-           
+            <Protected>
+              <UserProfilePage />
+            </Protected>
           }
         />
-
-        
       </Routes>
-   </>
+    </>
   );
 }
 

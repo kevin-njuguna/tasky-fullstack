@@ -1,4 +1,3 @@
-// src/store/userStore.ts
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -8,7 +7,7 @@ interface User {
   lastName: string;
   email: string;
   username: string;
-  avatarUrl?: string;
+  avatar?: string;
 }
 
 interface UserState {
@@ -24,8 +23,8 @@ const useUserStore = create<UserState>()(
       setUser: (user) => set({ user }),
       logout: () => set({ user: null }),
     }),
-    { name: "user-storage" }
-  )
+    { name: "user-storage" },
+  ),
 );
 
 export default useUserStore;

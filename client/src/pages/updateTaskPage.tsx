@@ -30,7 +30,11 @@ const UpdateTaskPage = () => {
     updatedAt: string;
   };
 
-  const { data: task, isLoading, isError } = useQuery<Task>({
+  const {
+    data: task,
+    isLoading,
+    isError,
+  } = useQuery<Task>({
     queryKey: ["task", taskId],
     queryFn: async () => {
       const res = await axiosInstance.get(`/api/tasks/${taskId}`);
@@ -60,15 +64,17 @@ const UpdateTaskPage = () => {
     },
   });
 
-const toggleCompleteMutation = useMutation({
-  mutationFn: async () => {
-    const endpoint = isCompleted ? `/api/tasks/incomplete/${taskId}` : `/api/tasks/complete/${taskId}`;
-    await axiosInstance.patch(endpoint);
-  },
-  onSuccess: async () => {
-  await queryClient.invalidateQueries({ queryKey: ["task", taskId] });
-},
-});
+  const toggleCompleteMutation = useMutation({
+    mutationFn: async () => {
+      const endpoint = isCompleted
+        ? `/api/tasks/incomplete/${taskId}`
+        : `/api/tasks/complete/${taskId}`;
+      await axiosInstance.patch(endpoint);
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["task", taskId] });
+    },
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -149,8 +155,8 @@ const toggleCompleteMutation = useMutation({
               {toggleCompleteMutation.isPending
                 ? "Updating..."
                 : isCompleted
-                ? "Mark Incomplete"
-                : "Mark Complete"}
+                  ? "Mark Incomplete"
+                  : "Mark Complete"}
             </Button>
           </Stack>
         </Stack>

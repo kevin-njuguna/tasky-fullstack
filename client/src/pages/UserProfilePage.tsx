@@ -12,6 +12,8 @@ import axiosInstance from "../api/axios";
 import useUserStore from "../store/userStore";
 import { useNavigate } from "react-router-dom";
 
+
+
 const UserProfilePage = () => {
   const { user, setUser, logout } = useUserStore();
   const [form, setForm] = useState({
@@ -31,8 +33,8 @@ const UserProfilePage = () => {
   useEffect(() => {
     axiosInstance.get("/api/user").then((res) => {
       setForm(res.data);
-      setAvatarUrl(res.data.avatar || "");
-      setUser(res.data);
+      setAvatarUrl(res.data.avatar);
+      setUser({ ...user!, avatar: res.data.avatar });
     });
   }, [setUser]);
 
@@ -46,25 +48,31 @@ const UserProfilePage = () => {
     }
   };
 
-  const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+ const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const file = e.target.files?.[0];
+  if (!file) return;
 
-    const formData = new FormData();
-    formData.append("file", file);
+  const reader = new FileReader();
+
+  reader.onloadend = async () => {
+    const base64 = reader.result as string; 
 
     try {
-     
-      const uploadRes = await axiosInstance.post("/api/upload", formData);
-      const avatarUrl = uploadRes.data.url;
+      const res = await axiosInstance.patch("/api/user/avatar", {
+        image: base64,
+      });
 
-      await axiosInstance.patch("/api/user/avatar", { avatarUrl });
-      setAvatarUrl(avatarUrl);
-      setUser({ ...user!, avatarUrl });
-    } catch {
+      setAvatarUrl(res.data.avatarUrl);
+      setUser({ ...user!, avatarUrl: res.data.avatar });
+    } catch (err) {
+      console.error(err);
       alert("Failed to upload avatar");
     }
   };
+
+  reader.readAsDataURL(file); 
+};
+
 
   const handlePasswordUpdate = async () => {
     const { currentPassword, newPassword, confirmPassword } = passwords;
@@ -76,7 +84,11 @@ const UserProfilePage = () => {
         newPassword,
       });
       alert("Password updated");
-      setPasswords({ currentPassword: "", newPassword: "", confirmPassword: "" });
+      setPasswords({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
     } catch (e: any) {
       alert(e.response?.data?.message || "Password update failed");
     }
@@ -99,11 +111,17 @@ const UserProfilePage = () => {
           src={avatarUrl}
           sx={{ width: 64, height: 64, bgcolor: "primary.main", fontSize: 20 }}
         >
-          {!avatarUrl && `${form.firstName?.[0] || ""}${form.lastName?.[0] || ""}`}
+          {!avatarUrl &&
+            `${form.firstName?.[0] || ""}${form.lastName?.[0] || ""}`}
         </Avatar>
         <Button variant="outlined" component="label">
           Upload Avatar
-          <input type="file" hidden accept="image/*" onChange={handleAvatarChange} />
+          <input
+            type="file"
+            hidden
+            accept="image/*"
+            onChange={handleAvatarChange}
+          />
         </Button>
       </Stack>
 
@@ -145,19 +163,25 @@ const UserProfilePage = () => {
           label="Current Password"
           type="password"
           value={passwords.currentPassword}
-          onChange={(e) => setPasswords({ ...passwords, currentPassword: e.target.value })}
+          onChange={(e) =>
+            setPasswords({ ...passwords, currentPassword: e.target.value })
+          }
         />
         <TextField
           label="New Password"
           type="password"
           value={passwords.newPassword}
-          onChange={(e) => setPasswords({ ...passwords, newPassword: e.target.value })}
+          onChange={(e) =>
+            setPasswords({ ...passwords, newPassword: e.target.value })
+          }
         />
         <TextField
           label="Confirm New Password"
           type="password"
           value={passwords.confirmPassword}
-          onChange={(e) => setPasswords({ ...passwords, confirmPassword: e.target.value })}
+          onChange={(e) =>
+            setPasswords({ ...passwords, confirmPassword: e.target.value })
+          }
         />
         <Button variant="contained" onClick={handlePasswordUpdate}>
           Update Password

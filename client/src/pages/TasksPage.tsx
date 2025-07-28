@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface Task {
   id: string;
@@ -26,7 +26,11 @@ const IncompleteTasksPage = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const { data: tasks, isLoading, isError } = useQuery({
+  const {
+    data: tasks,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["incompleteTasks"],
     queryFn: async () => {
       const response = await axiosInstance.get("/api/tasks/incomplete");
@@ -50,27 +54,29 @@ const IncompleteTasksPage = () => {
   };
 
   if (isLoading) return <Typography>Loading tasks...</Typography>;
-  if (isError) return <Typography color="error">Failed to fetch tasks.</Typography>;
+  if (isError)
+    return <Typography color="error">Failed to fetch tasks.</Typography>;
 
   return (
     <Box sx={{ p: 4 }}>
-      
-
       <Typography variant="h5" gutterBottom>
         🔄 Your Incomplete Tasks
       </Typography>
 
       {!tasks || tasks.length === 0 ? (
         <Typography variant="body1" sx={{ mt: 2 }}>
-          You don't have any pending tasks. Well done! 
+          You don't have any pending tasks. Well done!
         </Typography>
       ) : (
         <Grid container spacing={3}>
           {tasks.map((task) => (
-            <Grid size={{xs:12, sm:6, md:4}}  key={task.id}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={task.id}>
               <Card
                 variant="outlined"
-                sx={{ backgroundColor: "#fff7ed", borderLeft: "6px solid #fb923c" }}
+                sx={{
+                  backgroundColor: "#fff7ed",
+                  borderLeft: "6px solid #fb923c",
+                }}
               >
                 <CardContent>
                   <Typography
@@ -80,7 +86,11 @@ const IncompleteTasksPage = () => {
                     <HourglassEmptyIcon color="warning" />
                     {task.title}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mb: 2 }}
+                  >
                     {task.description}
                   </Typography>
 

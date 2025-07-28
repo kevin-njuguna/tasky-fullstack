@@ -20,7 +20,7 @@ import { useState } from "react";
 
 const Header = () => {
   const { user, logout } = useUser();
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery("(max-width:800px)");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -39,12 +39,13 @@ const Header = () => {
 
   const renderAvatar = () => {
     if (!user) return null;
-    if ((user as any).avatarUrl) {
+    if ((user as any).avatar) {
       // Avatar with image
-      return <Avatar alt={user.firstName} src={(user as any).avatarUrl} />;
+      return <Avatar alt={user.firstName} src={(user as any).avatar} />;
     } else {
       // Use initials
-      const initials = `${user.firstName?.[0] ?? ""}${user.lastName?.[0] ?? ""}`.toUpperCase();
+      const initials =
+        `${user.firstName?.[0] ?? ""}${user.lastName?.[0] ?? ""}`.toUpperCase();
       return <Avatar>{initials}</Avatar>;
     }
   };
@@ -54,9 +55,16 @@ const Header = () => {
       <AppBar position="static" sx={{ mb: 2 }}>
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Typography
+           component={Link}
+           to="/"
             variant="h6"
-            
-            sx={{ textDecoration: "none", color: "inherit", fontFamily: "cursive" }}
+            sx={{
+              
+              textDecoration: "none",
+              color: "inherit",
+              fontFamily: "cursive",
+              cursor: "pointer"
+            }}
           >
             Tasky
           </Typography>

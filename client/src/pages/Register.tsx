@@ -48,7 +48,14 @@ const Register = () => {
   const handleRegister = () => {
     setFormError("");
 
-    if (!firstName || !lastName || !userName || !email || !password || !confirm) {
+    if (
+      !firstName ||
+      !lastName ||
+      !userName ||
+      !email ||
+      !password ||
+      !confirm
+    ) {
       setFormError("Please fill in all fields.");
       return;
     }
@@ -62,10 +69,20 @@ const Register = () => {
   };
 
   return (
-    <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: "100vh", backgroundColor: "#f0f2f5" }}>
-      <Grid size={{xs:11, sm:8, md:5, lg:4}}>
+    <Grid
+      container
+      justifyContent="center"
+      alignItems="center"
+      sx={{ minHeight: "100vh", backgroundColor: "#f0f2f5" }}
+    >
+      <Grid size={{ xs: 11, sm: 8, md: 5, lg: 4 }}>
         <Paper elevation={3} sx={{ p: 4, borderRadius: 3 }}>
-          <Typography variant="h5" fontWeight="bold" gutterBottom align="center">
+          <Typography
+            variant="h5"
+            fontWeight="bold"
+            gutterBottom
+            align="center"
+          >
             Create an Account
           </Typography>
 
@@ -73,20 +90,67 @@ const Register = () => {
             <Stack spacing={2}>
               {formError && <Alert severity="error">{formError}</Alert>}
 
-              <TextField label="First Name" fullWidth required value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-              <TextField label="Last Name" fullWidth required value={lastName} onChange={(e) => setLastName(e.target.value)} />
-              <TextField label="Username" fullWidth required value={userName} onChange={(e) => setUserName(e.target.value)} />
-              <TextField label="Email" fullWidth required type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-              <TextField label="Password" fullWidth required type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-              <TextField label="Confirm Password" fullWidth required type="password" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
+              <TextField
+                label="First Name"
+                fullWidth
+                required
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              <TextField
+                label="Last Name"
+                fullWidth
+                required
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+              <TextField
+                label="Username"
+                fullWidth
+                required
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+              />
+              <TextField
+                label="Email"
+                fullWidth
+                required
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <TextField
+                label="Password"
+                fullWidth
+                required
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <TextField
+                label="Confirm Password"
+                fullWidth
+                required
+                type="password"
+                value={confirm}
+                onChange={(e) => setConfirm(e.target.value)}
+              />
 
-              <LoadingButton variant="contained" fullWidth onClick={handleRegister} loading={isPending}>
+              <LoadingButton
+                variant="contained"
+                fullWidth
+                onClick={handleRegister}
+                loading={isPending}
+              >
                 Sign Up
               </LoadingButton>
 
               <Typography variant="body2" align="center">
                 Already have an account?{" "}
-                <Link to="/login" style={{ textDecoration: "none", color: "#1976d2" }}>
+                <Link
+                  to="/login"
+                  style={{ textDecoration: "none", color: "#1976d2" }}
+                >
                   Login
                 </Link>
               </Typography>

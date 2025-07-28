@@ -73,7 +73,7 @@ const CompletedTasksPage = () => {
 
       <Grid container spacing={3} sx={{ mt: 2 }}>
         {tasks?.map((task) => (
-          <Grid size={{xs:12, sm:6, md:4}}  key={task.id}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }} key={task.id}>
             <Card
               variant="outlined"
               sx={{
@@ -90,7 +90,9 @@ const CompletedTasksPage = () => {
                   justifyContent="space-between"
                   alignItems="center"
                 >
-                  <Typography variant="h6" sx={{padding:.5}}>{task.title}</Typography>
+                  <Typography variant="h6" sx={{ padding: 0.5 }}>
+                    {task.title}
+                  </Typography>
                   <Chip
                     icon={<CheckCircleIcon fontSize="small" />}
                     label="Completed"
@@ -106,8 +108,6 @@ const CompletedTasksPage = () => {
                 >
                   {task.description}
                 </Typography>
-
-                
 
                 <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
                   <Button

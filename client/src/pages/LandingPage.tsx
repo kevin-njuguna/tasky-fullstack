@@ -4,10 +4,17 @@ import { motion } from "framer-motion";
 
 const LandingPage = () => {
   return (
-    <Box sx={{ minHeight: "100vh", background: "linear-gradient(to right, #667eea, #764ba2)", color: "white", py: 10 }}>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        background: "linear-gradient(to right, #667eea, #764ba2)",
+        color: "white",
+        py: 10,
+      }}
+    >
       <Container>
         <Grid container spacing={5} alignItems="center">
-          <Grid size={{xs:12, md:6}}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
@@ -17,7 +24,8 @@ const LandingPage = () => {
                 Welcome to Tasky
               </Typography>
               <Typography variant="h6" gutterBottom>
-                Organize your day, stay focused, and manage your tasks with ease.
+                Organize your day, stay focused, and manage your tasks with
+                ease.
               </Typography>
               <Box mt={4}>
                 <Button
@@ -25,7 +33,12 @@ const LandingPage = () => {
                   to="/register"
                   variant="contained"
                   size="large"
-                  sx={{ backgroundColor: "#fff", color: "#764ba2", mr: 2, fontWeight: 600 }}
+                  sx={{
+                    backgroundColor: "#fff",
+                    color: "#764ba2",
+                    mr: 2,
+                    fontWeight: 600,
+                  }}
                 >
                   Get Started
                 </Button>
@@ -42,11 +55,15 @@ const LandingPage = () => {
             </motion.div>
           </Grid>
 
-          <Grid size={{xs:12, md:6}}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <motion.img
               src="/assets/react.svg"
               alt="Tasky Illustration"
-              style={{ width: "100%", borderRadius: 16, boxShadow: "0 10px 30px rgba(0,0,0,0.3)" }}
+              style={{
+                width: "100%",
+                borderRadius: 16,
+                boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+              }}
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 1 }}
