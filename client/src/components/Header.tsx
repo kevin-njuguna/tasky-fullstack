@@ -55,15 +55,14 @@ const Header = () => {
       <AppBar position="static" sx={{ mb: 2 }}>
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Typography
-           component={Link}
-           to="/"
+            component={Link}
+            to="/"
             variant="h6"
             sx={{
-              
               textDecoration: "none",
               color: "inherit",
               fontFamily: "cursive",
-              cursor: "pointer"
+              cursor: "pointer",
             }}
           >
             Tasky

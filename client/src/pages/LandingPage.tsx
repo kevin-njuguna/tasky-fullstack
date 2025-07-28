@@ -2,6 +2,8 @@ import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
+
+
 const LandingPage = () => {
   return (
     <Box
@@ -57,7 +59,7 @@ const LandingPage = () => {
 
           <Grid size={{ xs: 12, md: 6 }}>
             <motion.img
-              src="/assets/react.svg"
+              src="/hour glass.jpeg"
               alt="Tasky Illustration"
               style={{
                 width: "100%",

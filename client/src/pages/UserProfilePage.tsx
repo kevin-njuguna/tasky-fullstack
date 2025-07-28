@@ -12,8 +12,6 @@ import axiosInstance from "../api/axios";
 import useUserStore from "../store/userStore";
 import { useNavigate } from "react-router-dom";
 
-
-
 const UserProfilePage = () => {
   const { user, setUser, logout } = useUserStore();
   const [form, setForm] = useState({
@@ -36,7 +34,7 @@ const UserProfilePage = () => {
       setAvatarUrl(res.data.avatar);
       setUser({ ...user!, avatar: res.data.avatar });
     });
-  }, [setUser]);
+  }/* , [setUser] */);
 
   const handleProfileUpdate = async () => {
     try {
@@ -48,31 +46,30 @@ const UserProfilePage = () => {
     }
   };
 
- const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  const file = e.target.files?.[0];
-  if (!file) return;
+  const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-  const reader = new FileReader();
+    const reader = new FileReader();
 
-  reader.onloadend = async () => {
-    const base64 = reader.result as string; 
+    reader.onloadend = async () => {
+      const base64 = reader.result as string;
 
-    try {
-      const res = await axiosInstance.patch("/api/user/avatar", {
-        image: base64,
-      });
+      try {
+        const res = await axiosInstance.patch("/api/user/avatar", {
+          image: base64,
+        });
 
-      setAvatarUrl(res.data.avatarUrl);
-      setUser({ ...user!, avatarUrl: res.data.avatar });
-    } catch (err) {
-      console.error(err);
-      alert("Failed to upload avatar");
-    }
+        setAvatarUrl(res.data.avatarUrl);
+        setUser({ ...user!, avatarUrl: res.data.avatar });
+      } catch (err) {
+        console.error(err);
+        alert("Failed to upload avatar");
+      }
+    };
+
+    reader.readAsDataURL(file);
   };
-
-  reader.readAsDataURL(file); 
-};
-
 
   const handlePasswordUpdate = async () => {
     const { currentPassword, newPassword, confirmPassword } = passwords;
