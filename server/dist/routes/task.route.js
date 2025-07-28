@@ -1,0 +1,59 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const task_controller_1 = require("../controllers/task.controller");
+const auth_controllers_1 = require("../controllers/auth.controllers");
+const router = (0, express_1.Router)();
+router.get("/", auth_controllers_1.authenticate, task_controller_1.getAllTasks);
+router.get(
+  "/incomplete",
+  auth_controllers_1.authenticate,
+  task_controller_1.getIncompleteTasks,
+);
+router.get(
+  "/completed",
+  auth_controllers_1.authenticate,
+  task_controller_1.getCompletedTasks,
+);
+router.get(
+  "/deleted",
+  auth_controllers_1.authenticate,
+  task_controller_1.getDeletedTasks,
+);
+router.get(
+  "/:taskId",
+  auth_controllers_1.authenticate,
+  task_controller_1.getTaskById,
+);
+router.post("/", auth_controllers_1.authenticate, task_controller_1.createTask);
+router.patch(
+  "/:taskId",
+  auth_controllers_1.authenticate,
+  task_controller_1.updateTask,
+);
+router.delete(
+  "/:taskId",
+  auth_controllers_1.authenticate,
+  task_controller_1.deleteTask,
+);
+router.patch(
+  "/restore/:taskId",
+  auth_controllers_1.authenticate,
+  task_controller_1.restoreTask,
+);
+router.patch(
+  "/complete/:taskId",
+  auth_controllers_1.authenticate,
+  task_controller_1.markTaskComplete,
+);
+router.patch(
+  "/incomplete/:taskId",
+  auth_controllers_1.authenticate,
+  task_controller_1.markTaskIncomplete,
+);
+router.get(
+  "/incomplete",
+  auth_controllers_1.authenticate,
+  task_controller_1.getIncompleteTasks,
+);
+exports.default = router;

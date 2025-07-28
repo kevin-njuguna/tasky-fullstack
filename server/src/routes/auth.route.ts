@@ -6,10 +6,16 @@ import checkEmailAndUsernameReuse from "../middlewares/checkEmailAndUsernameReus
 import { login } from "../controllers/auth.controllers";
 import { logout } from "../controllers/auth.controllers";
 
-const router: Router = Router()
+const router: Router = Router();
 
-router.post("/register", verifyUserInformation, checkEmailAndUsernameReuse,checkPasswordStrength, register)
-router.post("/login", login)
-router.post("/logout", logout)
+router.post(
+  "/register",
+  verifyUserInformation,
+  checkEmailAndUsernameReuse,
+  checkPasswordStrength,
+  register,
+);
+router.post("/login", login);
+router.post("/logout", logout);
 
-export default router
+export default router;

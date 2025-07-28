@@ -1,15 +1,17 @@
-import {Request, Response} from 'express'
-import { PrismaClient } from '@prisma/client'
-import { AuthRequest } from './auth.controllers'
+import { Request, Response } from "express";
+import { PrismaClient } from "@prisma/client";
+import { AuthRequest } from "./auth.controllers";
 
-const client = new PrismaClient()
+const client = new PrismaClient();
 
 export const createTask = async (req: AuthRequest, res: Response) => {
   try {
     const { title, description } = req.body;
 
     if (!title || !description) {
-      return res.status(400).json({ message: "Title and description are required" });
+      return res
+        .status(400)
+        .json({ message: "Title and description are required" });
     }
 
     const task = await client.task.create({
@@ -26,8 +28,6 @@ export const createTask = async (req: AuthRequest, res: Response) => {
     res.status(500).json({ message: "Something went wrong" });
   }
 };
-
-
 
 export const getAllTasks = async (req: AuthRequest, res: Response) => {
   try {
@@ -46,7 +46,6 @@ export const getAllTasks = async (req: AuthRequest, res: Response) => {
     res.status(500).json({ message: "Something went wrong" });
   }
 };
-
 
 export const getTaskById = async (req: AuthRequest, res: Response) => {
   const { taskId } = req.params;
@@ -68,7 +67,6 @@ export const getTaskById = async (req: AuthRequest, res: Response) => {
   }
 };
 
-
 export const updateTask = async (req: AuthRequest, res: Response) => {
   const { taskId } = req.params;
   const { title, description } = req.body;
@@ -86,7 +84,9 @@ export const updateTask = async (req: AuthRequest, res: Response) => {
     });
 
     if (task.count === 0) {
-      return res.status(404).json({ message: "Task not found or unauthorized" });
+      return res
+        .status(404)
+        .json({ message: "Task not found or unauthorized" });
     }
 
     res.json({ message: "Task updated successfully" });
@@ -135,7 +135,6 @@ export const getDeletedTasks = async (req: AuthRequest, res: Response) => {
   }
 };
 
-
 export const markTaskComplete = async (req: AuthRequest, res: Response) => {
   const { taskId } = req.params;
   try {
@@ -168,7 +167,7 @@ export const getIncompleteTasks = async (req: Request, res: Response) => {
 
     const tasks = await client.task.findMany({
       where: {
-        authorId: userId, 
+        authorId: userId,
         isCompleted: false,
         isDeleted: false,
       },
@@ -187,7 +186,9 @@ export const getCompletedTasks = async (req: AuthRequest, res: Response) => {
     const userId = req.user?.id;
 
     if (!userId) {
-      return res.status(401).json({ message: "Unauthorized: no user found in token." });
+      return res
+        .status(401)
+        .json({ message: "Unauthorized: no user found in token." });
     }
 
     const completedTasks = await client.task.findMany({
@@ -207,7 +208,6 @@ export const getCompletedTasks = async (req: AuthRequest, res: Response) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
-
 
 export const restoreTask = async (req: AuthRequest, res: Response) => {
   const { taskId } = req.params;

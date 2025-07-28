@@ -2,10 +2,9 @@ import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { AuthRequest } from "./auth.controllers";
-//import cloudinary from "../utils/cloudinary";
+import cloudinary from "../utils/cloudinary";
 
 const client = new PrismaClient();
-
 
 export const getProfile = async (req: AuthRequest, res: Response) => {
   try {
@@ -29,7 +28,6 @@ export const getProfile = async (req: AuthRequest, res: Response) => {
   }
 };
 
-
 export const updateProfile = async (req: AuthRequest, res: Response) => {
   const { firstName, lastName, email, username } = req.body;
 
@@ -45,7 +43,6 @@ export const updateProfile = async (req: AuthRequest, res: Response) => {
   }
 };
 
-
 export const updatePassword = async (req: AuthRequest, res: Response) => {
   const { currentPassword, newPassword } = req.body;
 
@@ -55,7 +52,8 @@ export const updatePassword = async (req: AuthRequest, res: Response) => {
     if (!user) return res.status(404).json({ message: "User not found" });
 
     const isMatch = await bcrypt.compare(currentPassword, user.password);
-    if (!isMatch) return res.status(400).json({ message: "Wrong current password" });
+    if (!isMatch)
+      return res.status(400).json({ message: "Wrong current password" });
 
     const hashed = await bcrypt.hash(newPassword, 10);
 
@@ -70,22 +68,30 @@ export const updatePassword = async (req: AuthRequest, res: Response) => {
   }
 };
 
-
 export const uploadAvatar = async (req: AuthRequest, res: Response) => {
   try {
-    const { avatarUrl } = req.body;
+    const { image } = req.body; 
 
-    if (!avatarUrl) {
-      return res.status(400).json({ message: "avatarUrl is required" });
+    if (!image) {
+      return res.status(400).json({ message: "Image is required" });
     }
+
+    const result = await cloudinary.uploader.upload(image, {
+      folder: "avatars",
+      transformation: [{ width: 200, height: 200, crop: "fill" }],
+    });
 
     const updated = await client.user.update({
       where: { id: req.user.id },
-      data: { avatar: avatarUrl },
+      data: { avatar: result.secure_url },
     });
 
-    res.json({ message: "Avatar updated successfully", avatar: updated.avatar });
+    res.json({
+      message: "Avatar updated successfully",
+      avatar: updated.avatar,
+    });
   } catch (e) {
-    res.status(500).json({ message: "Failed to update avatar" });
+    console.error(e);
+    res.status(500).json({ message: "Failed to upload avatar" });
   }
 };

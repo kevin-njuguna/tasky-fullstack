@@ -1,12 +1,8 @@
-import { Request, Response, NextFunction } from "express";
-
-export default function verifyUserInformation(
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = verifyUserInformation;
+function verifyUserInformation(req, res, next) {
   const { firstName, lastName, email, password, username } = req.body;
-
   if (!firstName) {
     res.status(400).json("Firstname is required");
     return;
