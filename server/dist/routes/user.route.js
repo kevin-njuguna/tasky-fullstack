@@ -5,19 +5,7 @@ const user_controller_1 = require("../controllers/user.controller");
 const auth_controllers_1 = require("../controllers/auth.controllers");
 const router = (0, express_1.Router)();
 router.get("/", auth_controllers_1.authenticate, user_controller_1.getProfile);
-router.patch(
-  "/",
-  auth_controllers_1.authenticate,
-  user_controller_1.updateProfile,
-);
-router.patch(
-  "/avatar",
-  auth_controllers_1.authenticate,
-  user_controller_1.uploadAvatar,
-);
-router.patch(
-  "/password",
-  auth_controllers_1.authenticate,
-  user_controller_1.updatePassword,
-);
+router.patch("/", auth_controllers_1.authenticate, user_controller_1.updateProfile);
+router.patch("/avatar", auth_controllers_1.authenticate, user_controller_1.uploadAvatar);
+router.patch("/password", auth_controllers_1.authenticate, user_controller_1.updatePassword);
 exports.default = router;

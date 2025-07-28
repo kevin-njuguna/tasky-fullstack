@@ -70,7 +70,7 @@ export const updatePassword = async (req: AuthRequest, res: Response) => {
 
 export const uploadAvatar = async (req: AuthRequest, res: Response) => {
   try {
-    const { image } = req.body; 
+    const { image } = req.body;
 
     if (!image) {
       return res.status(400).json({ message: "Image is required" });
