@@ -28,13 +28,20 @@ const UserProfilePage = () => {
   const [avatarUrl, setAvatarUrl] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axiosInstance.get("/api/user").then((res) => {
-      setForm(res.data);
-      setAvatarUrl(res.data.avatar);
-      setUser({ ...user!, avatar: res.data.avatar });
+ useEffect(() => {
+  axiosInstance.get("/api/user").then((res) => {
+    setForm(res.data);
+    setAvatarUrl(res.data.avatar);
+    setUser({
+      id: res.data.id,
+      firstName: res.data.firstName,
+      lastName: res.data.lastName,
+      email: res.data.email,
+      username: res.data.username,
+      avatar: res.data.avatar,
     });
-  }/* , [setUser] */);
+  });
+}, [setUser]);
 
   const handleProfileUpdate = async () => {
     try {
@@ -60,7 +67,7 @@ const UserProfilePage = () => {
           image: base64,
         });
 
-        //check this code in case of any issues, previously, it was avatarUrl
+        //check this code in case of any issues, previously, it was avatarURL
         setAvatarUrl(res.data.avatarUrl);
         setUser({ ...user!, avatar: res.data.avatar });
       } catch (err) {
