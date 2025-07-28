@@ -60,8 +60,9 @@ const UserProfilePage = () => {
           image: base64,
         });
 
+        //check this code in case of any issues, previously, it was avatarUrl
         setAvatarUrl(res.data.avatarUrl);
-        setUser({ ...user!, avatarUrl: res.data.avatar });
+        setUser({ ...user!, avatar: res.data.avatar });
       } catch (err) {
         console.error(err);
         alert("Failed to upload avatar");
