@@ -33,7 +33,7 @@ const Login = () => {
 
       return res.data;
     },
-    onError: (err: any) => {
+    onError: (err:any) => {
       setFormError(err.response?.data?.message || "Login failed");
     },
     onSuccess: (data) => {

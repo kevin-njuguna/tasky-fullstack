@@ -6,7 +6,7 @@ import {
   IconButton,
   Stack,
   Container,
-  Divider,
+
 } from "@mui/material";
 import RestoreIcon from "@mui/icons-material/RestoreFromTrash";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -15,7 +15,7 @@ import HourglassDisabledIcon from "@mui/icons-material/HourglassDisabled";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
-// Define a proper Task type
+
 interface Task {
   id: string;
   title: string;
