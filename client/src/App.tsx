@@ -1,4 +1,4 @@
-import {  Routes, Route } from "react-router-dom";
+import {  Routes, Route, useLocation } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -13,9 +13,11 @@ import Header from "./components/Header";
 
 
 function App() {
-  
+  const location = useLocation();
+  const isLandingPage = location.pathname === "/";
   return (
     <>
+        {!isLandingPage && <Header />}
          <Header/>
       <Routes>
         
