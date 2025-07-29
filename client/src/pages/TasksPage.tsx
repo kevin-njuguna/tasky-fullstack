@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "../api/axios";
 import {
@@ -14,7 +15,8 @@ import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 
-interface Task {
+
+export interface Task {
   id: string;
   title: string;
   description: string;
@@ -56,6 +58,27 @@ const IncompleteTasksPage = () => {
   if (isLoading) return <Typography>Loading tasks...</Typography>;
   if (isError)
     return <Typography color="error">Failed to fetch tasks.</Typography>;
+  
+const [summary, setSummary] = useState("");
+const [isSummarizing, setIsSummarizing] = useState(false);
+
+const handleSummarizeTasks = async () => {
+  if (!tasks) return;
+  setIsSummarizing(true);
+
+  try {
+    const response = await axiosInstance.post("/api/summarize", {
+      tasks: tasks.map(({ title, description }) => ({ title, description })),
+    });
+    setSummary(response.data.summary || "No summary generated.");
+  } catch (err) {
+    console.error("Failed to summarize tasks:", err);
+    setSummary("Something went wrong while summarizing tasks.");
+  } finally {
+    setIsSummarizing(false);
+  }
+};
+
 
   return (
     <Box sx={{ p: 4 }}>
@@ -112,6 +135,22 @@ const IncompleteTasksPage = () => {
                     >
                       Delete
                     </Button>
+                    <Button
+    variant="contained"
+    color="primary"
+    onClick={handleSummarizeTasks}
+    disabled={isSummarizing}
+  >
+    {isSummarizing ? "Summarizing..." : "Summarize Tasks"}
+  </Button>
+
+  {summary && (
+    <Box sx={{ mt: 2, backgroundColor: "#f3f4f6", p: 2, borderRadius: 2 }}>
+      <Typography variant="subtitle1">🧠 Task Summary:</Typography>
+      <Typography variant="body2" sx={{ whiteSpace: "pre-line" }}>
+        {summary}
+      </Typography>
+    </Box>
                   </Stack>
                 </CardContent>
               </Card>
