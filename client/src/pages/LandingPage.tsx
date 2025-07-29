@@ -1,8 +1,17 @@
+import { useEffect } from "react";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import useUserStore from "../store/userStore";
 
 const LandingPage = () => {
+
+const logout = useUserStore((state) => state.logout);
+
+  useEffect(() => {
+    logout(); 
+  }, [logout]);
+  
   return (
     <Box
       sx={{
