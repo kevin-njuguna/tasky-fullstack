@@ -11,6 +11,7 @@ const app = express();
 app.use(
   cors({
     origin: ["https://tasky-fullstack.vercel.app"],
+    //origin: ["http://localhost:5173"],
     methods: ["POST", "GET", "PUT", "PATCH", "DELETE"],
     credentials: true,
   }),
