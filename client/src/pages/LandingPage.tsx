@@ -2,32 +2,40 @@ import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-
-
 const LandingPage = () => {
   return (
     <Box
       sx={{
         minHeight: "100vh",
-        background: "linear-gradient(to right, #667eea, #764ba2)",
+        background: "linear-gradient(135deg, #222, #764ba2ff)",
         color: "white",
-        py: 10,
+        display: "flex",
+        alignItems: "center",
+        py: { xs: 6, md: 10 },
       }}
     >
       <Container>
-        <Grid container spacing={5} alignItems="center">
-          <Grid size={{ xs: 12, md: 6 }}>
+        <Grid container spacing={6} alignItems="center">
+          <Grid size={{xs:12, md:6}} >
             <motion.div
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <Typography variant="h2" fontWeight={700} gutterBottom>
+              <Typography
+                variant="h2"
+                fontWeight={800}
+                gutterBottom
+                sx={{ fontSize: { xs: "2.5rem", md: "3.5rem" } }}
+              >
                 Welcome to Tasky
               </Typography>
-              <Typography variant="h6" gutterBottom>
-                Organize your day, stay focused, and manage your tasks with
-                ease.
+              <Typography
+                variant="h6"
+                gutterBottom
+                sx={{ fontSize: { xs: "1rem", md: "1.25rem" }, opacity: 0.9 }}
+              >
+                Organize your day, stay focused, and manage your tasks with ease.
               </Typography>
               <Box mt={4}>
                 <Button
@@ -38,8 +46,11 @@ const LandingPage = () => {
                   sx={{
                     backgroundColor: "#fff",
                     color: "#764ba2",
-                    mr: 2,
                     fontWeight: 600,
+                    px: 4,
+                    "&:hover": {
+                      backgroundColor: "#f0eaff",
+                    },
                   }}
                 >
                   Get Started
@@ -49,7 +60,16 @@ const LandingPage = () => {
                   to="/login"
                   variant="outlined"
                   size="large"
-                  sx={{ borderColor: "#fff", color: "white", fontWeight: 600 }}
+                  sx={{
+                    ml: 2,
+                    borderColor: "#fff",
+                    color: "#fff",
+                    fontWeight: 600,
+                    px: 4,
+                    "&:hover": {
+                      backgroundColor: "rgba(255,255,255,0.1)",
+                    },
+                  }}
                 >
                   Login
                 </Button>
@@ -57,16 +77,16 @@ const LandingPage = () => {
             </motion.div>
           </Grid>
 
-          <Grid size={{ xs: 12, md: 6 }}>
+          <Grid size={{xs:12, md:6}}>
             <motion.img
               src="/hour glass.jpeg"
-              alt="Tasky Illustration"
+              alt="Tasky image"
               style={{
-                width: "100%",
-                borderRadius: 16,
-                boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+                width: "70%",
+                borderRadius: 20,
+                boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
               }}
-              initial={{ scale: 0.8, opacity: 0 }}
+              initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 1 }}
             />

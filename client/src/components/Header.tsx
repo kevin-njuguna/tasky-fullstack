@@ -52,12 +52,13 @@ const Header = () => {
 
   return (
     <>
-      <AppBar position="static" sx={{ mb: 2 }}>
+      <AppBar position="static">
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Typography
             component={Link}
             to="/"
             variant="h6"
+            
             sx={{
               textDecoration: "none",
               color: "inherit",
