@@ -1,4 +1,4 @@
-import { useState } from "react";
+/* import { useState } from "react"; */
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "../api/axios";
 import {
@@ -26,8 +26,8 @@ export interface Task {
 
 const IncompleteTasksPage = () => {
 
-const [summary, setSummary] = useState("");
-const [isSummarizing, setIsSummarizing] = useState(false);
+/* const [summary, setSummary] = useState("");
+const [isSummarizing, setIsSummarizing] = useState(false); */
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -64,7 +64,7 @@ const [isSummarizing, setIsSummarizing] = useState(false);
   
 
 
-const handleSummarizeTasks = async () => {
+/* const handleSummarizeTasks = async () => {
   if (!tasks) return;
   setIsSummarizing(true);
 
@@ -80,7 +80,7 @@ const handleSummarizeTasks = async () => {
     setIsSummarizing(false);
   }
 };
-
+ */
 
  return (
   <Box sx={{ p: 4 }}>
@@ -146,7 +146,7 @@ const handleSummarizeTasks = async () => {
         </Grid>
 
         
-        <Box sx={{ mt: 4 }}>
+        {/* <Box sx={{ mt: 4 }}>
           <Button
             variant="contained"
             color="primary"
@@ -171,7 +171,7 @@ const handleSummarizeTasks = async () => {
               </Typography>
             </Box>
           )}
-        </Box>
+        </Box> */}
       </>
     )}
   </Box>
