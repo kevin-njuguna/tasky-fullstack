@@ -16,6 +16,7 @@ import {
 
 import { authenticate } from "../controllers/auth.controllers";
 
+
 const router: Router = Router();
 
 router.get("/", authenticate, getAllTasks);
@@ -30,5 +31,6 @@ router.patch("/restore/:taskId", authenticate, restoreTask);
 router.patch("/complete/:taskId", authenticate, markTaskComplete);
 router.patch("/incomplete/:taskId", authenticate, markTaskIncomplete);
 router.get("/incomplete", authenticate, getIncompleteTasks);
+
 
 export default router;

@@ -3,6 +3,8 @@ import cookieParser from "cookie-parser";
 import authRouter from "./routes/auth.route";
 import taskRouter from "./routes/task.route";
 import userRouter from "./routes/user.route";
+import summarizeRoutes from "./routes/summarize.route"
+
 
 import cors from "cors";
 
@@ -29,6 +31,7 @@ app.get("/", (_req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/tasks", taskRouter);
 app.use("/api/user", userRouter);
+app.use("/api/summarize", summarizeRoutes)
 
 const PORT = process.env.PORT || 5000;
 
