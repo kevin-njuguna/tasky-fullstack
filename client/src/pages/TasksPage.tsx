@@ -25,6 +25,9 @@ export interface Task {
 }
 
 const IncompleteTasksPage = () => {
+
+const [summary, setSummary] = useState("");
+const [isSummarizing, setIsSummarizing] = useState(false);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -59,8 +62,7 @@ const IncompleteTasksPage = () => {
   if (isError)
     return <Typography color="error">Failed to fetch tasks.</Typography>;
   
-const [summary, setSummary] = useState("");
-const [isSummarizing, setIsSummarizing] = useState(false);
+
 
 const handleSummarizeTasks = async () => {
   if (!tasks) return;
@@ -80,20 +82,21 @@ const handleSummarizeTasks = async () => {
 };
 
 
-  return (
-    <Box sx={{ p: 4 }}>
-      <Typography variant="h5" gutterBottom>
-        🔄 Your Incomplete Tasks
-      </Typography>
+ return (
+  <Box sx={{ p: 4 }}>
+    <Typography variant="h5" gutterBottom>
+      🔄 Your Incomplete Tasks
+    </Typography>
 
-      {!tasks || tasks.length === 0 ? (
-        <Typography variant="body1" sx={{ mt: 2 }}>
-          You don't have any pending tasks. Well done!
-        </Typography>
-      ) : (
+    {!tasks || tasks.length === 0 ? (
+      <Typography variant="body1" sx={{ mt: 2 }}>
+        You don't have any pending tasks. Well done!
+      </Typography>
+    ) : (
+      <>
         <Grid container spacing={3}>
           {tasks.map((task) => (
-            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={task.id}>
+            <Grid size={{xs:12, sm:6, md:4}} key={task.id}>
               <Card
                 variant="outlined"
                 sx={{
@@ -117,7 +120,7 @@ const handleSummarizeTasks = async () => {
                     {task.description}
                   </Typography>
 
-                  <Stack direction="row" spacing={1}>
+                  <Stack direction="row" spacing={1} flexWrap="wrap">
                     <Chip label="Incomplete" color="warning" size="small" />
                     <Button
                       size="small"
@@ -135,31 +138,45 @@ const handleSummarizeTasks = async () => {
                     >
                       Delete
                     </Button>
-                    <Button
-    variant="contained"
-    color="primary"
-    onClick={handleSummarizeTasks}
-    disabled={isSummarizing}
-  >
-    {isSummarizing ? "Summarizing..." : "Summarize Tasks"}
-  </Button>
-
-  {summary && (
-    <Box sx={{ mt: 2, backgroundColor: "#f3f4f6", p: 2, borderRadius: 2 }}>
-      <Typography variant="subtitle1">🧠 Task Summary:</Typography>
-      <Typography variant="body2" sx={{ whiteSpace: "pre-line" }}>
-        {summary}
-      </Typography>
-    </Box>
                   </Stack>
                 </CardContent>
               </Card>
             </Grid>
           ))}
         </Grid>
-      )}
-    </Box>
-  );
+
+        
+        <Box sx={{ mt: 4 }}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSummarizeTasks}
+            disabled={isSummarizing}
+          >
+            {isSummarizing ? "Summarizing..." : "Summarize Tasks"}
+          </Button>
+
+          {summary && (
+            <Box
+              sx={{
+                mt: 2,
+                backgroundColor: "#f3f4f6",
+                p: 2,
+                borderRadius: 2,
+              }}
+            >
+              <Typography variant="subtitle1">🧠 Task Summary:</Typography>
+              <Typography variant="body2" sx={{ whiteSpace: "pre-line" }}>
+                {summary}
+              </Typography>
+            </Box>
+          )}
+        </Box>
+      </>
+    )}
+  </Box>
+);
+
 };
 
 export default IncompleteTasksPage;
