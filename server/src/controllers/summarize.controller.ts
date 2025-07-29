@@ -9,6 +9,7 @@ export const summarizeTasks = async (req: Request, res: Response) => {
   const { tasks } = req.body;
 
   if (!Array.isArray(tasks)) {
+    console.error("Invalid tasks payload:", tasks);
     return res.status(400).json({ error: "Tasks must be an array" });
   }
 
@@ -17,6 +18,8 @@ export const summarizeTasks = async (req: Request, res: Response) => {
     .join("\n")}`;
 
   try {
+    console.log("Sending prompt to OpenAI:", prompt); // log this!
+    
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: prompt }],
@@ -24,8 +27,8 @@ export const summarizeTasks = async (req: Request, res: Response) => {
 
     const summary = response.choices[0]?.message?.content ?? "No summary generated.";
     return res.status(200).json({ summary });
-  } catch (error) {
-    console.error("OpenAI error:", error);
+  } catch (error: any) {
+    console.error("OpenAI error:", error?.response?.data || error?.message || error);
     return res.status(500).json({ error: "Failed to generate summary" });
   }
 };
