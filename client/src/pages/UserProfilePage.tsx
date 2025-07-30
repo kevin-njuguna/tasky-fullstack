@@ -57,6 +57,7 @@ const UserProfilePage = () => {
   })
     alert(e.response?.data?.message || "Failed to update profile");
   }
+}
 
 
   const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
