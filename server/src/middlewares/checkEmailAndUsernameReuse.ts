@@ -15,15 +15,16 @@ export default async function checkEmailAndUsernameReuse(
   });
 
   if (userWithUsername) {
-    res.status(400).json({ message: "Username already in use!" });
-  }
+  return res.status(400).json({ message: "Username already in use!" });
+ }
 
   const userWithEmail = await client.user.findFirst({
     where: { email },
   });
 
   if (userWithEmail) {
-    res.status(400).json("Email already in use!");
-  }
+    
+  return res.status(400).json({ message: "Email already in use!" });
+}
   next();
 }
