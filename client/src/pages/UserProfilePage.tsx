@@ -67,7 +67,7 @@ const UserProfilePage = () => {
           image: base64,
         });
 
-        //check this code in case of any issues, previously, it was avatarURL
+        
         setAvatarUrl(res.data.avatarUrl);
         setUser({ ...user!, avatar: res.data.avatar });
       } catch (err) {
