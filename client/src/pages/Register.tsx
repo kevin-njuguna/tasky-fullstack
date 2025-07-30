@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import axiosInstance from "../api/axios";
+import PasswordField from "../components/PasswordField";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -119,21 +120,17 @@ const Register = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <TextField
+              <PasswordField
                 label="Password"
-                fullWidth
-                required
-                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-              />
-              <TextField
-                label="Confirm Password"
-                fullWidth
                 required
-                type="password"
+              />
+              <PasswordField
+                label="Confirm Password"
                 value={confirm}
                 onChange={(e) => setConfirm(e.target.value)}
+                required
               />
 
               <LoadingButton
