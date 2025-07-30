@@ -9,22 +9,29 @@ export default async function checkEmailAndUsernameReuse(
   next: NextFunction,
 ) {
   const { email, username } = req.body;
+  const userId = req.user?.id; 
 
   const userWithUsername = await client.user.findFirst({
-    where: { username },
+    where: {
+      username,
+      NOT: { id: userId }, 
+    },
   });
 
   if (userWithUsername) {
-  return res.status(400).json({ message: "Username already in use!" });
- }
+    return res.status(400).json({ message: "Username already in use!" });
+  }
 
   const userWithEmail = await client.user.findFirst({
-    where: { email },
+    where: {
+      email,
+      NOT: { id: userId }, 
+    },
   });
 
   if (userWithEmail) {
-    
-  return res.status(400).json({ message: "Email already in use!" });
-}
+    return res.status(400).json({ message: "Email already in use!" });
+  }
+
   next();
 }
