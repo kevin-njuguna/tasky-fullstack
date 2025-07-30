@@ -73,7 +73,7 @@ const Register = () => {
       container
       justifyContent="center"
       alignItems="center"
-      sx={{ minHeight: "100vh", backgroundColor: "#f0f2f5" }}
+      sx={{ minHeight: "100vh", backgroundColor: "#f0f2f5", mt:1 }}
     >
       <Grid size={{ xs: 11, sm: 8, md: 5, lg: 4 }}>
         <Paper elevation={3} sx={{ p: 4, borderRadius: 3 }}>
