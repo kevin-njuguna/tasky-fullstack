@@ -4,7 +4,7 @@
 
 ##  Live Demo
 
-Access the live application here: [https://tasky-fullstack.vercel.app/](https://tasky-app.vercel.app)
+Access the live application here: [https://tasky-fullstack.vercel.app/](https://tasky-fullstack.vercel.app/)
 
 > ⚠️ You must be logged in to use most features.
 
