@@ -45,14 +45,14 @@ const UserProfilePage = () => {
 }, [setUser]);
 
   const handleProfileUpdate = async () => {
-    try {
-      const res = await axiosInstance.patch("/api/user", form);
-      setUser(res.data.user);
-      alert("Profile updated");
-    } catch {
-      alert("Failed to update profile");
-    }
-  };
+  try {
+    const res = await axiosInstance.patch("/api/user", form);
+    setUser(res.data.user);
+    alert("Profile updated");
+  } catch (e: any) {
+    alert(e.response?.data?.message || "Failed to update profile");
+  }
+
 
   const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
