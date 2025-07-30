@@ -6,14 +6,14 @@ import {
   uploadAvatar,
 } from "../controllers/user.controller";
 import { authenticate } from "../controllers/auth.controllers";
-import checkPasswordStrength from "../middlewares/checkPasswordStrength";
-import checkEmailAndUsernameReuse from "../middlewares/checkEmailAndUsernameReuse";
+//import checkPasswordStrength from "../middlewares/checkPasswordStrength";
+//import checkEmailAndUsernameReuse from "../middlewares/checkEmailAndUsernameReuse";
 
 const router: Router = Router();
 
 router.get("/", authenticate, getProfile);
-router.patch("/", authenticate, checkEmailAndUsernameReuse,updateProfile);
+router.patch("/", authenticate, updateProfile);
 router.patch("/avatar", authenticate, uploadAvatar);
-router.patch("/password", authenticate, checkPasswordStrength,updatePassword);
+router.patch("/password", authenticate, updatePassword);
 
 export default router;
