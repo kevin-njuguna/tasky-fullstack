@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../api/axios";
 import useUserStore from "../store/userStore";
 import { useNavigate } from "react-router-dom";
+import PasswordField from "../components/PasswordField";
 
 const UserProfilePage = () => {
   const { user, setUser, logout } = useUserStore();
@@ -164,30 +165,28 @@ const UserProfilePage = () => {
       </Typography>
 
       <Stack spacing={2}>
-        <TextField
+        <PasswordField
           label="Current Password"
-          type="password"
           value={passwords.currentPassword}
           onChange={(e) =>
             setPasswords({ ...passwords, currentPassword: e.target.value })
           }
         />
-        <TextField
-          label="New Password"
-          type="password"
-          value={passwords.newPassword}
-          onChange={(e) =>
-            setPasswords({ ...passwords, newPassword: e.target.value })
-          }
-        />
-        <TextField
-          label="Confirm New Password"
-          type="password"
-          value={passwords.confirmPassword}
-          onChange={(e) =>
-            setPasswords({ ...passwords, confirmPassword: e.target.value })
-          }
-        />
+            <PasswordField
+              label="New Password"
+              value={passwords.newPassword}
+              onChange={(e) =>
+                setPasswords({ ...passwords, newPassword: e.target.value })
+              }
+            />
+            <PasswordField
+              label="Confirm New Password"
+              value={passwords.confirmPassword}
+              onChange={(e) =>
+                setPasswords({ ...passwords, confirmPassword: e.target.value })
+              }
+            />
+
         <Button variant="contained" onClick={handlePasswordUpdate}>
           Update Password
         </Button>

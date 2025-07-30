@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate, Link } from "react-router-dom";
 import useUser from "../store/userStore";
+import PasswordField from "../components/PasswordField";
 
 import {
   Box,
@@ -80,13 +81,11 @@ const Login = () => {
                 value={identifier}
                 onChange={(e) => setIdentifier(e.target.value)}
               />
-              <TextField
+              <PasswordField
                 label="Password"
-                type="password"
-                fullWidth
-                required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
 
               <LoadingButton
