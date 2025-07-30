@@ -1,20 +1,23 @@
-import { Request, Response, NextFunction } from "express";
+// checkEmailAndUsernameReuse.ts
+
+import { Response, NextFunction } from "express";
 import { PrismaClient } from "@prisma/client";
+import { AuthRequest } from "../controllers/auth.controllers"; // ← import the extended Request type
 
 const client = new PrismaClient();
 
 export default async function checkEmailAndUsernameReuse(
-  req: Request,
+  req: AuthRequest, // ← use the extended type here
   res: Response,
   next: NextFunction,
 ) {
   const { email, username } = req.body;
-  const userId = req.user?.id; 
+  const userId = req.user?.id;
 
   const userWithUsername = await client.user.findFirst({
     where: {
       username,
-      NOT: { id: userId }, 
+      NOT: { id: userId },
     },
   });
 
@@ -25,7 +28,7 @@ export default async function checkEmailAndUsernameReuse(
   const userWithEmail = await client.user.findFirst({
     where: {
       email,
-      NOT: { id: userId }, 
+      NOT: { id: userId },
     },
   });
 
