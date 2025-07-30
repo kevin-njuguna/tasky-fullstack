@@ -50,7 +50,11 @@ const UserProfilePage = () => {
     setUser(res.data.user);
     alert("Profile updated");
   } catch (e: any) {
-    console.error("full error", e)
+    console.error("Error response", {
+    status: e?.response?.status,
+    data: e?.response?.data,
+    message: e?.response?.data?.message,
+  })
     alert(e.response?.data?.message || "Failed to update profile");
   }
 
