@@ -1,13 +1,11 @@
-// checkEmailAndUsernameReuse.ts
-
 import { Response, NextFunction } from "express";
 import { PrismaClient } from "@prisma/client";
-import { AuthRequest } from "../controllers/auth.controllers"; // ← import the extended Request type
+import { AuthRequest } from "../controllers/auth.controllers"; 
 
 const client = new PrismaClient();
 
 export default async function checkEmailAndUsernameReuse(
-  req: AuthRequest, // ← use the extended type here
+  req: AuthRequest, 
   res: Response,
   next: NextFunction,
 ) {
